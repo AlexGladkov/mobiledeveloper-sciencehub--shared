@@ -16,12 +16,13 @@ class PageBuilder {
 
 class PageBlockContainer {
 
-    val content: MutableList<PageBlock> = mutableListOf()
+    private val _content: MutableList<PageBlock> = mutableListOf()
+    val content: List<PageBlock> get() = _content
 
     @ArticleDSL
-    inline fun pageBlock(block: PageBlockBuilder.() -> Unit) =
+    internal inline fun pageBlock(block: PageBlockBuilder.() -> Unit) =
         PageBlockBuilder().apply(block).build().also {
-            content.add(it)
+            _content.add(it)
         }
 }
 

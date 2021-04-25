@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import ru.gladkov.sciencehub.shared.di.Configuration
 import ru.gladkov.sciencehub.shared.di.EngineSDK
 import ru.gladkov.sciencehub.shared.di.PlatformType
@@ -12,6 +14,7 @@ import ru.gladkov.sciencehub.shared.di.engine.models.Page
 import ru.gladkov.sciencehub.shared.di.engine.models.headerBlock
 import ru.gladkov.sciencehub.shared.di.engine.models.page
 import ru.gladkov.sciencehub.shared.di.engine.models.textBlock
+import ru.gladkov.sciencehub.shared.features.hubble.hubble
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,20 +28,9 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        compileArticle(page {
-            number = 1
-            pageBlocks {
-                headerBlock(text = "This is article header")
-                textBlock(text = "This is article text")
-                textBlock(text = "This is another article text")
-                textBlock(text = "This is the end")
-            }
-        })
-    }
-
-    fun compileArticle(page: Page) {
-        page.pageBlocks.forEach {
-            Log.e("TAG", "Type -> ${it.type}, Content -> ${it.content}")
+        GlobalScope.launch {
+            val result = EngineSDK.hubble.hubbleRepository.fetchNews()
+            Log.e("TAG", "Result -> ${result.count()}")
         }
     }
 }

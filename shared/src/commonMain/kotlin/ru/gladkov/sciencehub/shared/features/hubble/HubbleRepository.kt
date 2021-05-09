@@ -5,4 +5,5 @@ class HubbleRepository(
 ) {
 
     suspend fun fetchNews() = remoteDataSource.fetchNews()
+    suspend fun getNew(id: String) = remoteDataSource.getNew(id)
 }

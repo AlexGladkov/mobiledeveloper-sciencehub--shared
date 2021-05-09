@@ -1,4 +1,5 @@
 buildscript {
+    val kotlin_version by extra("1.4.31")
     repositories {
         gradlePluginPortal()
         jcenter()
@@ -6,10 +7,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        val kotlinVersion = "1.4.20"
-        classpath("com.android.tools.build:gradle:4.0.1")
-        classpath(kotlin("gradle-plugin", version = kotlinVersion))
-        classpath(kotlin("serialization", version = kotlinVersion))
+        classpath("com.android.tools.build:gradle:4.2.0")
+        classpath(kotlin("gradle-plugin", version = kotlin_version))
+        classpath(kotlin("serialization", version = kotlin_version))
     }
 }
 
